@@ -449,23 +449,56 @@ files so that your Git pane is cleared up afterwards.</em></p>
 ages into the following categories: “18 and under”, “19 - 25”, “26 -
 35”, “36 - 50”, “51 and over”.</li>
 </ol>
+<pre class="r"><code>lego_sales &lt;- lego_sales%&gt;%
+  mutate(age_group = case_when(
+    age &lt;= 18 ~ &quot;18 and under&quot;,
+    age &gt; 18 &amp; age &lt;= 25 ~ &quot;19 - 25&quot;,
+    age &gt; 25 &amp; age &lt;= 35 ~ &quot;26 - 35&quot;,
+    age &gt; 35 &amp; age &lt;= 50 ~ &quot;36 - 50&quot;,
+    age &gt; 50 ~ &quot;51 and over&quot;
+  ))</code></pre>
 <pre class="marginfigure"><code>**Hint:** You will need to consider quantity of purchases.</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Which age group has purchased the highest number of Lego sets.</li>
 </ol>
+<pre class="r"><code>lego_sales%&gt;%
+  group_by(age_group)%&gt;%
+  summarize(sum = sum(quantity))</code></pre>
+<p><strong>36-50</strong></p>
 <pre class="marginfigure"><code>**Hint:** You will need to consider quantity of purchases as well as price of lego sets.</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Which age group has spent the most money on Legos?</li>
 </ol>
+<pre class="r"><code>lego_sales%&gt;%
+  group_by(age_group)%&gt;%
+  mutate(total_spend = quantity * us_price)%&gt;%
+  summarize(sum = sum(total_spend))</code></pre>
+<p><strong>36-50 group</strong></p>
 <pre class="marginfigure"><code>**Hint:** The [`str_sub()`](https://stringr.tidyverse.org/reference/str_sub.html) function will be helpful here!</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Which Lego theme has made the most money for Lego?</p></li>
-<li><p>Which area code has spent the most money on Legos? In the US the
-area code is the first 3 digits of a phone number.</p></li>
-<li><p>Come up with a question you want to answer using these data, and
+<li>Which Lego theme has made the most money for Lego?</li>
+</ol>
+<pre class="r"><code>lego_sales%&gt;%
+  group_by(theme)%&gt;%
+  mutate(tot_theme = quantity * us_price)%&gt;%
+  summarize(sum = sum(tot_theme))%&gt;%
+  top_n(1)</code></pre>
+<p><strong>Star Wars</strong></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Which area code has spent the most money on Legos? In the US the
+area code is the first 3 digits of a phone number.</li>
+</ol>
+<pre class="r"><code>lego_sales%&gt;%
+  mutate(area_code = str_sub(phone_number, start = 1, end = 3))%&gt;%
+  group_by(area_code)%&gt;%
+  mutate(total_spend = quantity * us_price)%&gt;%
+  summarize(sum = sum(total_spend))%&gt;%
+  top_n(2)</code></pre>
+<pre><code>**NA is the top, but the next is 956*</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Come up with a question you want to answer using these data, and
 write it down. Then, create a data visualization that answers the
-question, and explain how your visualization answers the
-question.</p></li>
+question, and explain how your visualization answers the question.</li>
 </ol>
 <p>🧶 ✅ ⬆️ Knit, <em>commit, and push your changes to GitHub with an
 appropriate commit message. Make sure to commit and push all changed

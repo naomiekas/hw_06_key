@@ -93,11 +93,32 @@ lego_sales%>%
 
 4.  Create a new variable called `age_group` and group the ages into the following categories: "18 and under", "19 - 25", "26 - 35", "36 - 50", "51 and over".
 
+```{r}
+lego_sales <- lego_sales%>%
+  mutate(age_group = case_when(
+    age <= 18 ~ "18 and under",
+    age > 18 & age <= 25 ~ "19 - 25",
+    age > 25 & age <= 35 ~ "26 - 35",
+    age > 35 & age <= 50 ~ "36 - 50",
+    age > 50 ~ "51 and over"
+  ))
+
+```
+
+
 ```{marginfigure}
 **Hint:** You will need to consider quantity of purchases.
 ```
 
 5.  Which age group has purchased the highest number of Lego sets.
+
+```{r}
+lego_sales%>%
+  group_by(age_group)%>%
+  summarize(sum = sum(quantity))
+```
+
+**36-50**
 
 ```{marginfigure}
 **Hint:** You will need to consider quantity of purchases as well as price of lego sets.
@@ -105,14 +126,46 @@ lego_sales%>%
 
 6.  Which age group has spent the most money on Legos?
 
+```{r}
+lego_sales%>%
+  group_by(age_group)%>%
+  mutate(total_spend = quantity * us_price)%>%
+  summarize(sum = sum(total_spend))
+
+```
+
+**36-50 group**
+
 ```{marginfigure}
 **Hint:** The [`str_sub()`](https://stringr.tidyverse.org/reference/str_sub.html) function will be helpful here!
 ```
 
 7.  Which Lego theme has made the most money for Lego?
 
+```{r}
+lego_sales%>%
+  group_by(theme)%>%
+  mutate(tot_theme = quantity * us_price)%>%
+  summarize(sum = sum(tot_theme))%>%
+  top_n(1)
+```
+
+**Star Wars**
+
 8.  Which area code has spent the most money on Legos?
     In the US the area code is the first 3 digits of a phone number.
+    
+```{r}
+lego_sales%>%
+  mutate(area_code = str_sub(phone_number, start = 1, end = 3))%>%
+  group_by(area_code)%>%
+  mutate(total_spend = quantity * us_price)%>%
+  summarize(sum = sum(total_spend))%>%
+  top_n(2)
+
+```
+    
+    **NA is the top, but the next is 956*
 
 9.  Come up with a question you want to answer using these data, and write it down.
     Then, create a data visualization that answers the question, and explain how your visualization answers the question.
