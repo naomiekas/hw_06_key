@@ -421,13 +421,25 @@ within the context of this particular sample of sales, i.e. you
 shouldn’t make inferences about the population of all Lego sales based
 on this sample.</p>
 <ol style="list-style-type: decimal">
-<li><p>What are the three most common first names of
-purchasers?</p></li>
-<li><p>What are the three most common themes of Lego sets
-purchased?</p></li>
-<li><p>Among the most common theme of Lego sets purchased, what is the
-most common subtheme?</p></li>
+<li>What are the three most common first names of purchasers?</li>
 </ol>
+<pre class="r"><code>lego_sales%&gt;%
+  count(first_name, sort = TRUE)</code></pre>
+<p><strong>Jackson, Jacob/Joseph, Michael</strong></p>
+<ol start="2" style="list-style-type: decimal">
+<li>What are the three most common themes of Lego sets purchased?</li>
+</ol>
+<pre class="r"><code>lego_sales%&gt;%
+  count(theme, sort = TRUE)</code></pre>
+<p><strong>Star Wars, Nexo Knights, Gear/Nixels</strong></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Among the most common theme of Lego sets purchased, what is the most
+common subtheme?</li>
+</ol>
+<pre class="r"><code>lego_sales%&gt;%
+  filter(theme == &quot;Star Wars&quot;)%&gt;%
+  count(subtheme, sort = TRUE)</code></pre>
+<p><strong>The Force Awakens</strong></p>
 <p>🧶 ✅ ⬆️ Knit, <em>commit, and push your changes to GitHub with an
 appropriate commit message. Make sure to commit and push all changed
 files so that your Git pane is cleared up afterwards.</em></p>

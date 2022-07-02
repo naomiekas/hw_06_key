@@ -59,9 +59,31 @@ Note that the answers to all questions are within the context of this particular
 
 1.  What are the three most common first names of purchasers?
 
+```{r}
+lego_sales%>%
+  count(first_name, sort = TRUE)
+```
+
+**Jackson, Jacob/Joseph, Michael**
+
 2.  What are the three most common themes of Lego sets purchased?
 
+```{r}
+lego_sales%>%
+  count(theme, sort = TRUE)
+```
+
+**Star Wars, Nexo Knights, Gear/Nixels**
+
 3.  Among the most common theme of Lego sets purchased, what is the most common subtheme?
+
+```{r}
+lego_sales%>%
+  filter(theme == "Star Wars")%>%
+  count(subtheme, sort = TRUE)
+```
+
+**The Force Awakens**
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
