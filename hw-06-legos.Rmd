@@ -1,11 +1,7 @@
 ---
-title: "HW 05 - Legos"
+title: "HW 06 - Legos"
 output: 
-  tufte::tufte_html:
-    css: ../hw.css
-    tufte_variant: "envisioned"
-    highlight: pygments
-link-citations: yes
+  html_document
 ---
 
 ```{r include = FALSE}
@@ -39,8 +35,8 @@ If anything is missing, commit and push again.
 
 ## Packages
 
-We'll use the **tidyverse** package for much of the data wrangling and visualisation and the data lives in the **dsbox** package.
-These packages are already installed for you.
+We'll use the **tidyverse** package for much of the data wrangling and visualization and the data lives in the **dsbox** package.
+These packages should already be installed.
 You can load them by running the following in your Console:
 
 ```{r load-packages, message = FALSE, eval = TRUE}
@@ -57,7 +53,7 @@ You can also find this information [here](https://rstudio-education.github.io/ds
 
 # Exercises
 
-Answer the following questions using pipelines.
+Answer the following questions using pipelines to fine the answers (as opposed to scrolling through the raw data).
 For each question, state your answer in a sentence, e.g. "In this sample, the first three common names of purchasers are ...".
 Note that the answers to all questions are within the context of this particular sample of sales, i.e. you shouldn't make inferences about the population of all Lego sales based on this sample.
 
